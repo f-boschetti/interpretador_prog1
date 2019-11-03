@@ -1,9 +1,9 @@
-import java.util.Scanner;
-public class Variaveis {
+public class Funcao{
+	
+public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		
-		class Variaveis{
+class Variaveis{
+
 			
 			private String variaveis[] = new String [1000];
 			private String conteudos[] = new String [1000];
@@ -11,39 +11,38 @@ public class Variaveis {
 			
 			// procura no vetor de variaveis a variavel recebida como parametro
 			public int indiceVariavel(String variavel) {
-				return java.util.Arrays.asList(variaveis).indexOf(variavel);
+				return java.util.Arrays.asList(this.variaveis).indexOf(variavel);
 			}
 			
 			// retorna o valor da variável no indice x
 			public String getConteudo(int x){
-				return conteudos[x];
+				return this.conteudos[x];
 			}
 			
 			// retorna o conteudo da variável com o nome recebido
 			public String getConteudo(String variavel){
-				return conteudos[indiceVariavel(variavel)];
+				return this.conteudos[indiceVariavel(variavel)];
 			}
 			
 			// guarda o nome da variavel e seu conteudo em dois vetores no mesmo indice
 			public void setVariavel(String variavel, String conteudo){
-				variaveis[indice] = variavel;
-				conteudos[indice] = conteudo;
-				indice++;
+				this.variaveis[this.indice] = variavel;
+				this.conteudos[this.indice] = conteudo;
+				this.indice++;
 			}
 			
 			// atribui um novo valor a variavel existente
 			public void setConteudo(String variavel, String conteudo){
-				conteudos[indiceVariavel(variavel)] = conteudo;
+				this.conteudos[indiceVariavel(variavel)] = conteudo;
 			}
 			
 			// imprime o nome da variavel e seu valor
 			public void imprimeVariavel(int index){
-				System.out.println("Variavel: " + variaveis[index]);
-				System.out.println("Valor: " + conteudos[index]);
-			}			
-			
-		}
-		
+				System.out.println("Variavel: " + this.variaveis[index]);
+				System.out.println("Conteudo: " + this.conteudos[index]);
+			}
+	}// fim class variaveis
+
 		//##################
 		//TESTE DOS METODOS#   FUNCIONANDO COMO O ESPERADO!!
 		//##################
@@ -53,37 +52,25 @@ public class Variaveis {
 		teste.setVariavel("b", "5");
 		teste.setVariavel("c", "a + b");
 		teste.setVariavel("s", "'a + b'");
-		teste.setVariavel("peint", "s + c");
+		teste.setVariavel("print", "s + c");
+		teste.setVariavel("print", "'s + c'");
 		
 		
-		System.out.println(teste.indiceVariavel("s"));
+		teste.imprimeVariavel(teste.indiceVariavel("s"));
 		System.out.println(teste.getConteudo(1));
 		teste.setConteudo("b", "novo");
-		System.out.println(teste.getConteudo(1));
-		teste.imprimeVariavel(0);
+		System.out.println(teste.getConteudo("b"));
 		
 		
-		//UM JEITO DE PASSAR O ARQUIVO PRO ARGS LINHA POR LINHA
 		/*
-		Variaveis teste = new Variaveis();
-		
-		String a = "a = 2"
-				+ "\nb = 3"
-				+ "\nc = a + b"
-				+ "\ns = 'a soma"
-				+ "\nimprime(s + c)";
-		System.out.println(a);
-		
-		// a partir daqui começa a classe variaveis
-
-		Scanner sc = new Scanner(a);
-		int i = 0;
-        while(sc.hasNextLine()) {
-        	
-        }*/
-        
-		
-		
-	}
-
-}
+		//funciona e retorna null
+		teste.imprimeVariavel(0);
+		teste.imprimeVariavel(1);
+		teste.imprimeVariavel(2);
+		teste.imprimeVariavel(3);
+		teste.imprimeVariavel(4);
+		teste.imprimeVariavel(5);
+		teste.imprimeVariavel(6);
+		*/
+}//fim da main
+}//fim da classe temporaria 
