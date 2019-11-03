@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class teste {
 	//tem a main pra testar os comandos!!!
@@ -94,7 +93,7 @@ public class teste {
 		Funcoes teste = new Funcoes(); 
 		teste.interpreta(programa);
 
-
+		sc.close();
         }
         
 	}
