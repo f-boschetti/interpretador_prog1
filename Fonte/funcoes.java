@@ -4,10 +4,11 @@ public class teste {
 	//tem a main pra testar os comandos!!!
 	public static void main(String[] args) {
 		//UM JEITO DE PASSAR O ARQUIVO PRO ARGS LINHA POR LINHA
-		String a = "testeiriri   := 10"
-				+ "\nb := 15"
+		String a = "testeiriri   := 1   0"
+				+ "\nb := 15   "
 				+ "\nc := testeiriri + b     "
 				+ "\ns := '    a soma'     "
+				+ "\n//um comentario"
 				+ "\nv :=     True"
 				+ "\nif a+b == c:"
 				+ "\n	if c += 25:"
@@ -46,44 +47,60 @@ public class teste {
 						Double valor = 0.0;
 						
 						//tenta passar para double
+						//INDENTIFICAR SE TEM ; E IGNORAR
 						try{
-				        	valor = Double.parseDouble(programa[linha].split("=")[1]);
+				        	valor = Double.parseDouble(programa[linha].split("=")[1].replace(" ", ""));
+				        	//testes
 				        	System.out.print(nomeDaVariavel + "|");
 				        	System.out.println(valor);
-				        	//System.out.println(programa[linha].split("'")[1]);
+				        	//codigo final
+				        	
+				        	
 				        } 
 						//resolve o erro se nao for double
 						catch (NumberFormatException e) {
 				        	//Se tiver um + é atribuicao TRATAR MELHOR ISSO
 							if (programa[linha].split("=")[1].contains("+")) {
+								//testes
 				        		System.out.print(nomeDaVariavel + "|");
 				        		System.out.println(programa[linha].split("=")[1].trim());
+				        		//codigo final
+				        		
+				        		
 				        	}
 							//se tiver ' é string JA RESOLVIDO
 							else if (programa[linha].split("=")[1].contains("'")) {
+								//testes
 				        		System.out.print(nomeDaVariavel + "|");
 				        		System.out.println(programa[linha].split("=")[1].trim());
+				        		//codigo final
+				        		
+				        		
 				        	}
 							//Verifica se é booleano, TRATAR
 							else if (programa[linha].split("=")[1].toLowerCase().contains("true") || 
 				        			  programa[linha].split("=")[1].toLowerCase().contains("false")) {
+								//testes
 				        		System.out.print(programa[linha].substring(0, programa[linha].indexOf(":=") ).replace(" ", "") + "|");
 				        		System.out.println("bool");
+				        		//codigo final
+				        		
+				        		
 				        	}
 
-				        	//Double valor = Double.parseDouble(programa[2].split("=")[1]);
-				        	//System.out.println(valor);
-				        }
+							
+							
+				        }//fim do catch
 						
 
 						
 						
 						
-					}
-				}
-			}
+					}//fim do if "atribuição"
+				}//fim do for para cada linha diferente de null
+			}//fim do metodo interpreta
 
-		}
+		}//fim classe funçoes
 		
 		//####################
 		//#TESTE DO PROGRAMA #
@@ -94,6 +111,5 @@ public class teste {
 		teste.interpreta(programa);
 
 		sc.close();
-        }
-        
-	}
+        }//fim da main
+	}//fim do teste
