@@ -1,9 +1,4 @@
-public class Funcao{
-	
-public static void main(String[] args) {
-
-class Variaveis{
-
+public class ClasseVariaveis{		
 			
 			private String variaveis[] = new String [1000];
 			private String conteudos[] = new String [1000];
@@ -41,36 +36,24 @@ class Variaveis{
 				System.out.println("Variavel: " + this.variaveis[index]);
 				System.out.println("Conteudo: " + this.conteudos[index]);
 			}
-	}// fim class variaveis
-
+			
+	public static void main(String[] args) {
 		//##################
 		//TESTE DOS METODOS#   FUNCIONANDO COMO O ESPERADO!!
 		//##################
-		Variaveis teste = new Variaveis();
-		
+		ClasseVariaveis teste = new ClasseVariaveis();
+				
 		teste.setVariavel("a", "2");
 		teste.setVariavel("b", "5");
 		teste.setVariavel("c", "a + b");
 		teste.setVariavel("s", "'a + b'");
 		teste.setVariavel("print", "s + c");
 		teste.setVariavel("print", "'s + c'");
-		
+				
 		
 		teste.imprimeVariavel(teste.indiceVariavel("s"));
 		System.out.println(teste.getConteudo(1));
 		teste.setConteudo("b", "novo");
 		System.out.println(teste.getConteudo("b"));
-		
-		
-		/*
-		//funciona e retorna null
-		teste.imprimeVariavel(0);
-		teste.imprimeVariavel(1);
-		teste.imprimeVariavel(2);
-		teste.imprimeVariavel(3);
-		teste.imprimeVariavel(4);
-		teste.imprimeVariavel(5);
-		teste.imprimeVariavel(6);
-		*/
-}//fim da main
-}//fim da classe temporaria 
+			}
+}
