@@ -1,14 +1,12 @@
 import java.util.Scanner;
 
-// ESTOU PENSANDO COMO SE TIVESSE 2 OU MAIS OBJEOTS "VARIAVEIS", UM COMO BACKUP
-// UM PARA STRING E OUTRO PARA FLOAT, POREM TODOS COM OS MESMOS VALORES
-public class Funcoes{
+//os print's são para testar o codigo, apagar depois!!!!
+public class Funcoes extends ClasseVariaveis{
 	private String atribuicao = ":=";
-	private String[] carecteresReservador = {"==", "!=", "@or", "@and", ">", "<"}; //não sei oq fazer com a or e a and
+	private String[] operadoresMatematicos = {"+", "-", "*", "/", "%"};
+	private String[] operadoresBooleanos = {"==", "!=", "@or", "@and", ">", "<"}; //não sei oq fazer com a or e a and
 	
-	private ClasseVariaveis numerosEOperacoes = new ClasseVariaveis();
-	private ClasseVariaveis textosEBooleanos = new ClasseVariaveis();
-	private ClasseVariaveis original = new ClasseVariaveis();
+	static private ClasseVariaveis interpretador = new ClasseVariaveis();
 			
 			
 	public void interpreta(String programa[]) {
@@ -25,52 +23,49 @@ public class Funcoes{
 				Double valor = 0.0;
 						
 				//tenta passar para double E RETORNA UM DOUBLE
-				//se tiver ; ele ignora o ; PARA NUMEROS
-				try{
-					/*
-					if (programa[linha].split("=")[1].replace(" ", "").contains(";")){
-						programa[linha] = programa[linha].replace(";", "");
-					}*/
-							
+				//se tiver ; ele ignora o ; PARA OS NUMEROS
+				try{							
 		        	valor = Double.parseDouble(programa[linha].split("=")[1].replace(" ", ""));
-		        	//System.out.println(programa[linha].split("=")[1].replace(" ", ""));
-		        	//testes
-		        	System.out.print(nomeDaVariavel + "|");
-		        	System.out.println(valor);
-		        	//codigo final
-				        	
-				        	
-		        } 
+		        	//GUARDA COMO STRING
+		        	if (interpretador.indiceVariavel(nomeDaVariavel) == -1){
+		        		interpretador.setVariavel(nomeDaVariavel, valor.toString());
+		        	}else {interpretador.setConteudo(nomeDaVariavel, valor.toString());
+		        		}
+		        	interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
+	        		//System.out.println(interpretador.getConteudo(nomeDaVariavel).getClass());
+		        }
 				//resolve o erro se nao for double
 				catch (NumberFormatException e) {
-		        	//Se tiver um + é atribuicao TRATAR MELHOR ISSO
-					if (programa[linha].split("=")[1].contains("+")) {
-						//testes
-		        		System.out.print(nomeDaVariavel + "|");
-		        		System.out.println(programa[linha].split("=")[1].trim());
-		        		//codigo final
-				        		
-				        		
-		        	}
+					//Reconhece qualquer string dentro dos operadoresBooleanos, descobri o "for each" :)
+					for(String k : operadoresBooleanos) {
+						if (programa[linha].split("=")[1].contains(k)) {
+			        		String Booleano = "Booleano";
+			        		interpretador.setVariavel(nomeDaVariavel, Booleano);
+			        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
+						}
+					}
+					//Reconhece qualquer string dentro dos operadoresMatematicos, descobri o "for each" :)
+					//TRATAR
+					for(String l : operadoresMatematicos){
+						if (programa[linha].split("=")[1].contains(l)) {
+							interpretador.setVariavel(nomeDaVariavel, "Equação a resolver, STRING");
+			        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
+						}
+					}
 					//se tiver ' é string JA RESOLVIDO
-					else if (programa[linha].split("=")[1].contains("'")) {
-						//testes
-		        		System.out.print(nomeDaVariavel + "|");
-		        		System.out.println(programa[linha].split("=")[1].trim());
+					if (programa[linha].split("=")[1].contains("'")) {
 		        		//codigo final
-				        		
-				        		
+		        		interpretador.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
+		        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
+
 		        	}
-					//Verifica se é booleano, TRATAR
-					else if (programa[linha].split("=")[1].toLowerCase().contains("true") || 
-		        			  programa[linha].split("=")[1].toLowerCase().contains("false")) {
-						//testes
-		        		System.out.print(programa[linha].substring(0, programa[linha].indexOf(":=") ).replace(" ", "") + "|");
-		        		System.out.println("bool");
-		        		//codigo final
-				        		
-				        		
+					//Verifica se é booleano, resolver com o IF
+					else if (programa[linha].split("=")[1].toLowerCase().contains("true")) {
+						interpretador.setVariavel(nomeDaVariavel, "true");
 		        	}
+					else if (programa[linha].split("=")[1].toLowerCase().contains("false")) {
+						interpretador.setVariavel(nomeDaVariavel, "false");
+					}
 					//reconhece se é um numero com ;
 					else if ((programa[linha].split("=")[1].indexOf("'") == -1)) {
 		        		if (programa[linha].split("=")[1].contains(";")) {
@@ -97,34 +92,36 @@ public class Funcoes{
 		//#TESTE DO PROGRAMA #
 		//####################
 		//tem a main pra testar os comandos
-	public static void main(String[] args) {
-		//UM JEITO DE PASSAR O ARQUIVO PRO ARGS LINHA POR LINHA
-		String a = "testeiriri   := 1   0;"
-					+ "\nb := 15   "
-					+ "\nc := testeiriri + b     "
-					+ "\ns := '  ;  a soma'     "
-					+ "\n//um comentario"
-					+ "\nv :=     True"
-					+ "\nif a+b == c:"
-					+ "\n	if c += 25:"
-					+ "\n		imprime(s + c)"
-					+ "\n	else:"
-					+ "\n		while 25> c:"
-					+ "\n			c++";
-		//System.out.println(a);
-			
-		String programa[] = new String[1000];
-
-		Scanner sc = new Scanner(a);
-		int i = 0;
-	    while(sc.hasNextLine()) {
-	       	programa[i] = sc.nextLine();
-	       	i++;
-	    }		
+public static void main(String[] args) {
+	//UM JEITO DE PASSAR O ARQUIVO PRO ARGS LINHA POR LINHA
+	String a = "a   := 10"
+				+ "\nb := 15"
+				+ "\nc := a + b     "
+				+ "\nc := a> b     "
+				+ "\ns := '  ;  a soma'     "
+				+ "\n//um comentario"
+				+ "\nv :=     True"
+				+ "\nif a+b == c:"
+				+ "\n	if c += 25:"
+				+ "\n		imprime(s + c)"
+				+ "\n	else:"
+				+ "\n		while 25> c:"
+				+ "\n			c++";
+	//System.out.println(a);
 		
-		Funcoes teste = new Funcoes(); 
-		teste.interpreta(programa);
+	String programa[] = new String[1000];
 
-		sc.close();
+	Scanner sc = new Scanner(a);
+	int i = 0;
+    while(sc.hasNextLine()) {
+       	programa[i] = sc.nextLine();
+       	i++;
+    }		
+	
+    
+	Funcoes teste = new Funcoes(); 
+	teste.interpreta(programa);
+	System.out.println(ClasseVariaveis.getConteudo(3));
+	sc.close();
 	}//fim da main
-}//fim da classe funções
+}//fim da classe funçoes
