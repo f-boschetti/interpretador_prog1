@@ -34,6 +34,7 @@ public class Funcoes extends ClasseVariaveis{
 		        	interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
 	        		//System.out.println(interpretador.getConteudo(nomeDaVariavel).getClass());
 		        }
+
 				//resolve o erro se nao for double
 				catch (NumberFormatException e) {
 					//Reconhece qualquer string dentro dos operadoresBooleanos, descobri o "for each" :)
@@ -44,6 +45,7 @@ public class Funcoes extends ClasseVariaveis{
 			        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
 						}
 					}
+
 					//Reconhece qualquer string dentro dos operadoresMatematicos, descobri o "for each" :)
 					//TRATAR
 					for(String l : operadoresMatematicos){
@@ -52,13 +54,16 @@ public class Funcoes extends ClasseVariaveis{
 			        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
 						}
 					}
-					//se tiver ' é string JA RESOLVIDO
-					if (programa[linha].split("=")[1].contains("'")) {
-		        		//codigo final
-		        		interpretador.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
-		        		interpretador.imprimeVariavel(interpretador.indiceVariavel(nomeDaVariavel));
 
+					//se tiver ' é string
+					if (programa[linha].split("=")[1].contains("'")) {
+		        		if(interpretador.indiceVariavel(nomeDaVariavel) == -1){
+		        			interpretador.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
+		        		}else {
+			        		interpretador.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
+		        		}
 		        	}
+
 					//Verifica se é booleano, resolver com o IF
 					else if (programa[linha].split("=")[1].toLowerCase().contains("true")) {
 						interpretador.setVariavel(nomeDaVariavel, "true");
@@ -66,6 +71,7 @@ public class Funcoes extends ClasseVariaveis{
 					else if (programa[linha].split("=")[1].toLowerCase().contains("false")) {
 						interpretador.setVariavel(nomeDaVariavel, "false");
 					}
+					
 					//reconhece se é um numero com ;
 					else if ((programa[linha].split("=")[1].indexOf("'") == -1)) {
 		        		if (programa[linha].split("=")[1].contains(";")) {
