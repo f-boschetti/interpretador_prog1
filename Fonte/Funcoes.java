@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 //os print's são para testar o codigo, apagar depois!!!!
+//não tenho certeza se precisa do extends, quase certeza que NÃO
 public class Funcoes extends ClasseVariaveis{
 	private String atribuicao = ":=";
 	private String[] operadoresMatematicos = {"+", "-", "*", "/", "%"};
