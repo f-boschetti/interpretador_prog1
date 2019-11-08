@@ -1,7 +1,10 @@
-package interpretador_prog1;
-
 class Erro extends java.lang.Throwable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Erro(int e, int linha, String frase){
 		
 		System.out.println("Na linha: " + (linha+1));
