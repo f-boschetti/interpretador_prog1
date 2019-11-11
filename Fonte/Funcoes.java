@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
-//os print's são para testar o codigo, apagar depois!!!!
-//não tenho certeza se precisa do extends, quase certeza que NÃO
+//Quase certeza que não precisa do extends
+//Sei que os metodos operacoesMat e operacoesLogicas não estão erientadas p/ objetos, mas n consegui fazer melhor
 public class Funcoes extends ClasseVariaveis{
 	private String atribuicao = ":=";
 	private String[] operadoresMatematicos = {"+", "-", "*", "/", "%"};
-	private String[] operadoresBooleanos = {"==", "!=", "@or", "@and", ">", "<"}; //não sei oq fazer com a or e a and
+	private String[] operadoresBooleanos = {"#", "$", ">", "<", "<#", ">#"}; 
 	
-	//talvez um nome melhor para a variavel fosse "m" !?
 	static private ClasseVariaveis memoria = new ClasseVariaveis();
 			
 			
@@ -38,9 +37,8 @@ public class Funcoes extends ClasseVariaveis{
 					//Reconhece qualquer string dentro dos operadoresBooleanos, descobri o "for each" :)
 					for(String k : operadoresBooleanos) {
 						if (programa[linha].split("=")[1].contains(k)) {
-							String Booleano = "Booleano";
 			        		if(memoria.indiceVariavel(nomeDaVariavel) == -1) {
-			        			memoria.setVariavel(nomeDaVariavel, Booleano);
+			        			memoria.setVariavel(nomeDaVariavel, operacoesLogicas(programa[linha].split("=")[1].trim().replace(" ", "")));
 			        		}else {
 			        			memoria.setConteudo(nomeDaVariavel, "outro booleano");
 			        		}
@@ -51,9 +49,9 @@ public class Funcoes extends ClasseVariaveis{
 					for(String l : operadoresMatematicos){
 						if (programa[linha].split("=")[1].contains(l)) {
 							if(memoria.indiceVariavel(nomeDaVariavel) == -1) {
-								memoria.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace(" ", ""));
+								memoria.setVariavel(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].trim().replace(" ", "")));
 							}else {
-								memoria.setConteudo(nomeDaVariavel, programa[linha].split("=")[1].trim().replace(" ", ""));
+								memoria.setConteudo(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].trim().replace(" ", "")));
 							}
 						}
 					}
@@ -82,19 +80,12 @@ public class Funcoes extends ClasseVariaveis{
 							memoria.setConteudo(nomeDaVariavel, "false");
 						}
 					}
-					
-					//reconhece se é um numero com ;
-					else if ((programa[linha].split("=")[1].indexOf("'") == -1)) {
-		        		if (programa[linha].split("=")[1].contains(";")) {
-		        			System.out.print(nomeDaVariavel + "|");
-		    				System.out.println(Double.parseDouble(programa[linha].split("=")[1].replace(" ", "").replace(";", "")));
-		    			}	
-		        	}
 		        }//fim do catch
-			}//fim do if "atribuição"
-		}//fim do for para cada linha diferente de null
+			}
+		}
 		
-		 /*
+		/*
+		//teste de memoria, DEIXAR CLASSES PUBLIC
 		int contador = 0;
 		System.out.println("________________________________________________________________________");
 		for(String x : conteudos) {
@@ -103,26 +94,80 @@ public class Funcoes extends ClasseVariaveis{
 				contador ++;
 			}
 		}
-		
-		System.out.println(conteudos[1]);
-		*/
-	}//fim do metodo interpreta
+		*/		
+	}
 	
-
+	//SOMENTE DOIS NUMEROS POR VEZ
 	public String operacoesMat(String expressao){
+		String numeros[];
+		String operadores[];
+		//Double com "D" para poder converter para string depois
+		Double resultado = 0.0;
 		
-		return "x";
+		numeros		= expressao.split("\\+|\\-|\\*|\\/|\\%");
+		operadores	= expressao.split("((\\w+|\\.+)+)");
+		//troca os valores das variaveis pelos valores armazenados
+		for(int i=0; i<numeros.length; i++) {
+			if(memoria.existeVariavel(numeros[i])) {
+				numeros[i] = memoria.getConteudo(numeros[i]);
+			}
+		}
+		
+		Double valor1	= Double.parseDouble(numeros[0].trim());
+		Double valor2 	= Double.parseDouble(numeros[1].trim());
+		String operador		= operadores[1].trim();
+		
+		switch(operador){
+		case "+": resultado = valor1 + valor2; break; //soma
+		case "-": resultado = valor1 - valor2; break; //subtração
+		case "*": resultado = valor1 * valor2; break; //multiplicação
+		case "/": resultado = valor1 / valor2; break; //divisão
+		case "%": resultado = valor1 % valor2; break; //mod
+		}
+		return resultado.toString();
 	}
 		
+	
+	//SOMENTE DOIS POR VEZ
+	//Exatamente igual as operaçoes matematicas
+	public String operacoesLogicas(String expressao) {
+		String operandos[];
+		String operadores[];
+		
+		//Double com "D" para poder converter para string depois
+		Boolean resultado = null;
+		operadores	= expressao.split("((\\w+|\\.+)+)"); 
+		operandos = expressao.split("\\#|\\$|\\<\\#|\\>\\#|\\<|\\>");//letras e numeros que possam ser variaveis
+		
+		for (int i=0; i<operandos.length; i++){
+			if(memoria.existeVariavel(operandos[i])){
+				operandos[i] = memoria.getConteudo(operandos[i]);
+			}
+		}
+		
+		Double valor1	= Double.parseDouble(operandos[0].trim());
+		Double valor2 	= Double.parseDouble(operandos[1].trim());
+		String operador		= operadores[1].trim();
+
+		switch (operador){
+		case "#": resultado = valor1 == valor2; break; // igual
+		case "$": resultado = valor1 != valor2; break; // diferente
+		case "<": resultado = valor1 < valor2; break; // menor
+		case ">": resultado = valor1 > valor2; break; // maior
+		case "<#": resultado = valor1 <= valor2; break; // menor igual
+		case ">#": resultado = valor1 >= valor2; break; // maior igual
+		}
+		return resultado.toString();
+	}
 		//####################
 		//#TESTE DO PROGRAMA #
 		//####################
 		//tem a main pra testar os comandos
 public static void main(String[] args) {
-	String a = "a   := 10"
+	String a = "a   := 3"
 				+ "\nb := 15"
-				+ "\nc := a + b     "
-				+ "\nd := a> b     "
+				+ "\nc := a + b   "
+				+ "\nd := a # b     "
 				+ "\ns := '  ;  a soma'     "
 				+ "\n//um comentario"
 				+ "\nv :=     True"
@@ -143,6 +188,8 @@ public static void main(String[] args) {
     }		
 	Funcoes teste = new Funcoes(); 
 	teste.interpreta(programa);
+	int num = 2;
+	//System.out.println(variaveis[num] + " | " + conteudos[num]);
 	sc.close();
 	
 	
