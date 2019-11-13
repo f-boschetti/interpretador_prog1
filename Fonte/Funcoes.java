@@ -90,7 +90,7 @@ public class Funcoes extends ClasseVariaveis{
 		    				System.out.println(Double.parseDouble(programa[linha].split("=")[1].replace(" ", "").replace(";", "")));
 		    			}	
 		        	}
-					/*if (programa[linha].split("=")[1].contains("*")) {
+					if (programa[linha].split("=")[1].contains("*")) {
 						int arrl= 1
 						boolean [] fif = new boolean(arrl);
 						boolean allTrue = true;
