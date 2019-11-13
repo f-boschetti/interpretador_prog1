@@ -90,7 +90,24 @@ public class Funcoes extends ClasseVariaveis{
 		    				System.out.println(Double.parseDouble(programa[linha].split("=")[1].replace(" ", "").replace(";", "")));
 		    			}	
 		        	}
-		        }//fim do catch
+					/*if (programa[linha].split("=")[1].contains("*")) {
+						int arrl= 1
+						boolean [] fif = new boolean(arrl);
+						boolean allTrue = true;
+						for (boolean teste : fif)
+						{
+						    if (!teste)
+						    {
+						        allTrue = false;
+						        break;
+						    }
+						}
+						}
+					}
+				
+				
+				
+				}//fim do catch
 			}//fim do if "atribuição"
 		}//fim do for para cada linha diferente de null
 		
