@@ -85,16 +85,17 @@ public class Funcoes extends ClasseVariaveis{
 		}
 		
 		/*
-		//teste de memoria, DEIXAR CLASSES PUBLIC
+		//PARA OLHAS O QUE ESTÁ NA MEMORIA VC DESCOMENTA O CODIGO ABAIXO
+		// E DEIXA variaveis e conteudos (d0 ClasseVariaveis) PUBLIC
 		int contador = 0;
-		System.out.println("________________________________________________________________________");
+		System.out.println("__________________________________");
 		for(String x : conteudos) {
 			if(x != null) {
 				System.out.println(variaveis[contador] + " | " + x);
 				contador ++;
 			}
-		}
-		*/		
+		}*/
+				
 	}
 	
 	//SOMENTE DOIS NUMEROS POR VEZ
@@ -162,22 +163,19 @@ public class Funcoes extends ClasseVariaveis{
 		//####################
 		//#TESTE DO PROGRAMA #
 		//####################
-		//tem a main pra testar os comandos
 public static void main(String[] args) {
-	String a = "a   := 3"
-				+ "\nb := 15"
-				+ "\nc := a + b   "
-				+ "\nd := a # b     "
-				+ "\ns := '  ;  a soma'     "
-				+ "\n//um comentario"
+	String a = "asd   :=	3         "
+				+ "\nb := 15 "
+				+ "\nc := asd + b   "
+				+ "\nd := asd # b     "
+				+ "\ns := '  ;  a; soma'     "
 				+ "\nv :=     True"
-				+ "\nif a+b == c:"
-				+ "\n	if c += 25:"
-				+ "\n		imprime(s + c)"
-				+ "\n	else:"
-				+ "\n		while 25> c:"
-				+ "\n			c++";
+				+ "\nif (a;+b # c)"
+				+ "\n [£, imprime ('igual')]"
+				+ "\nif c +# 25:"
+				+ "\n[£, £, imprime('e maior que 25')]";
 		
+	// SÓ OQUE PRECISA FAZER É COLOCAR UMA AND ENTRE OS BOOLEANOS £ 
 	String programa[] = new String[1000];
 
 	Scanner sc = new Scanner(a);
