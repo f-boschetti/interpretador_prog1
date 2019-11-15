@@ -1,0 +1,1 @@
+Manual da linguagem interpretada;
