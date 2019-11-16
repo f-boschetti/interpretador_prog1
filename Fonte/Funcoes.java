@@ -38,9 +38,9 @@ public class Funcoes extends ClasseVariaveis{
 					for(String k : operadoresBooleanos) {
 						if (programa[linha].split("=")[1].contains(k)) {
 			        		if(memoria.indiceVariavel(nomeDaVariavel) == -1) {
-			        			memoria.setVariavel(nomeDaVariavel, operacoesLogicas(programa[linha].split("=")[1].trim().replace(" ", "")));
+			        			memoria.setVariavel(nomeDaVariavel, operacoesLogicas(programa[linha].split("=")[1].replace(" ", "")));
 			        		}else {
-			        			memoria.setConteudo(nomeDaVariavel, "outro booleano");
+			        			memoria.setConteudo(nomeDaVariavel, operacoesLogicas(programa[linha].split("=")[1].replace(" ", "")));
 			        		}
 						}
 					}
@@ -49,9 +49,9 @@ public class Funcoes extends ClasseVariaveis{
 					for(String l : operadoresMatematicos){
 						if (programa[linha].split("=")[1].contains(l)) {
 							if(memoria.indiceVariavel(nomeDaVariavel) == -1) {
-								memoria.setVariavel(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].trim().replace(" ", "")));
+								memoria.setVariavel(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].replace(" ", "")));
 							}else {
-								memoria.setConteudo(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].trim().replace(" ", "")));
+								memoria.setConteudo(nomeDaVariavel, operacoesMat(programa[linha].split("=")[1].replace(" ", "")));
 							}
 						}
 					}
@@ -59,9 +59,9 @@ public class Funcoes extends ClasseVariaveis{
 					//se tiver ' é string
 					if (programa[linha].split("=")[1].contains("'")) {
 		        		if(memoria.indiceVariavel(nomeDaVariavel) == -1){
-		        			memoria.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
+		        			memoria.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].replace("'", ""));
 		        		}else {
-			        		memoria.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].trim().replace("'", ""));
+			        		memoria.setVariavel(nomeDaVariavel, programa[linha].split("=")[1].replace("'", ""));
 		        		}
 		        	}
 
@@ -81,13 +81,17 @@ public class Funcoes extends ClasseVariaveis{
 						}
 					}
 		        }//fim do catch
+			}// fim atribuição
+			
+			if (programa[linha].startsWith("imprime:")) {
+				this.imprime(programa[linha].trim());
 			}
 		}
-		
 		/*
-		//PARA OLHAS O QUE ESTÁ NA MEMORIA VC DESCOMENTA O CODIGO ABAIXO
-		// E DEIXA variaveis e conteudos (d0 ClasseVariaveis) PUBLIC
-		int contador = 0;
+		//###################################################################
+		//PARA OLHAS O QUE ESTÁ NA MEMORIA VC DESCOMENTA O CODIGO ABAIXO	#
+		// E DEIXA variaveis e conteudos (d0 ClasseVariaveis) PUBLIC		#
+		int contador = 0;													
 		System.out.println("__________________________________");
 		for(String x : conteudos) {
 			if(x != null) {
@@ -160,20 +164,42 @@ public class Funcoes extends ClasseVariaveis{
 		}
 		return resultado.toString();
 	}
+	
+	
+	public void imprime(String imprimir) {
+		
+		
+		//linha em branco
+		if(imprimir.replace(" ", "").equals("imprime:")) {
+			System.out.println("");
+		}
+		//Imprime texto simples
+		else if(imprimir.contains("'")) {
+			String texto = imprimir.split("'")[1].replace("|m", "\n");
+			System.out.print(texto);
+		}
+		else{
+			String variavel = imprimir.replace(" ", "").replace("imprime:", "");
+			System.out.print(memoria.getConteudo(variavel));
+			}
+
+	}
+	
+	
 		//####################
 		//#TESTE DO PROGRAMA #
 		//####################
 public static void main(String[] args) {
-	String a = "asd   :=	3         "
-				+ "\nb := 15 "
-				+ "\nc := asd + b   "
-				+ "\nd := asd # b     "
+	String a = "asd   :=	10         "
+				+ "\nb := 3 "
+				+ "\nc := asd / b   "
+				+ "\nd := asd # b"
+				+ "\nd := asd $ b     "
 				+ "\ns := '  ;  a; soma'     "
 				+ "\nv :=     True"
-				+ "\nif (a;+b # c)"
-				+ "\n [£, imprime ('igual')]"
-				+ "\nif c +# 25:"
-				+ "\n[£, £, imprime('e maior que 25')]";
+				+ "\nimprime: 'o valor de asd é : '"
+				+ "\nimprime: asd"
+				+ "\nimprime: ";
 		
 	// SÓ OQUE PRECISA FAZER É COLOCAR UMA AND ENTRE OS BOOLEANOS £ 
 	String programa[] = new String[1000];
