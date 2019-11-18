@@ -45,25 +45,4 @@ class ClasseVariaveis{
 			return false;
 		}
 	}
-/*		
-	public static void main(String[] args) {
-		//##################
-		//TESTE DOS METODOS#   FUNCIONANDO COMO O ESPERADO!!
-		//##################
-		ClasseVariaveis teste = new ClasseVariaveis();
-				
-		teste.setVariavel("a", "10");
-		teste.setVariavel("b", "5");
-		teste.setVariavel("c", "");
-		teste.setVariavel("s", "'a + b'");
-		teste.setVariavel("print", "s + c");
-		teste.setVariavel("print", "'s + c'");
-				
-		
-		teste.imprimeVariavel(teste.indiceVariavel("s"));
-		System.out.println(teste.indiceVariavel("s"));
-		System.out.println(teste.getConteudo(1));
-		teste.setConteudo("b", "novo");
-		System.out.println(teste.getConteudo("b"));
-			}*/
 }

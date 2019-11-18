@@ -15,9 +15,9 @@ public class Funcoes extends ClasseVariaveis{
 		for (int linha = 0 ; programa[linha] != null; linha ++) {
 
 		//identifica uma atribuição
-			if (programa[linha].contains(this.atribuicao)){		
+			if (programa[linha].contains(this.atribuicao)){
 				programa[linha].trim();
-				int inicioAtribuicao = programa[linha].indexOf(atribuicao);// o indexOf() passa o indice do PRIMEIRO caracter
+				int inicioAtribuicao = programa[linha].indexOf(this.atribuicao);// o indexOf() passa o indice do PRIMEIRO caracter
 				String nomeDaVariavel = programa[linha].substring(0, inicioAtribuicao).replace(" ", ""); //nome da variavel sem NENHUM ESPAÇO
 				Double valor = 0.0;
 						
@@ -83,23 +83,10 @@ public class Funcoes extends ClasseVariaveis{
 		        }//fim do catch
 			}// fim atribuição
 			
-			if (programa[linha].startsWith("imprime:")) {
+			if (programa[linha].trim().startsWith("imprime:")) {
 				this.imprime(programa[linha].trim());
 			}
-		}
-		/*
-		//###################################################################
-		//PARA OLHAS O QUE ESTÁ NA MEMORIA VC DESCOMENTA O CODIGO ABAIXO	#
-		// E DEIXA variaveis e conteudos (d0 ClasseVariaveis) PUBLIC		#
-		int contador = 0;													
-		System.out.println("__________________________________");
-		for(String x : conteudos) {
-			if(x != null) {
-				System.out.println(variaveis[contador] + " | " + x);
-				contador ++;
-			}
-		}*/
-				
+		}				
 	}
 	
 	//SOMENTE DOIS NUMEROS POR VEZ
@@ -168,7 +155,6 @@ public class Funcoes extends ClasseVariaveis{
 	
 	public void imprime(String imprimir) {
 		
-		
 		//linha em branco
 		if(imprimir.replace(" ", "").equals("imprime:")) {
 			System.out.println("");
@@ -179,43 +165,22 @@ public class Funcoes extends ClasseVariaveis{
 			System.out.print(texto);
 		}
 		else{
+			boolean novaLinha = false;
 			String variavel = imprimir.replace(" ", "").replace("imprime:", "");
+			if(variavel.contains("|m")) {
+				novaLinha = true;
+				variavel = variavel.replace("|m", "");
+			}
 			System.out.print(memoria.getConteudo(variavel));
+			if(novaLinha) {
+				System.out.println();
+			}
 			}
 
 	}
-	
-	
-		//####################
-		//#TESTE DO PROGRAMA #
-		//####################
-public static void main(String[] args) {
-	String a = "asd   :=	10         "
-				+ "\nb := 3 "
-				+ "\nc := asd / b   "
-				+ "\nd := asd # b"
-				+ "\nd := asd $ b     "
-				+ "\ns := '  ;  a; soma'     "
-				+ "\nv :=     True"
-				+ "\nimprime: 'o valor de asd é : '"
-				+ "\nimprime: asd"
-				+ "\nimprime: ";
-		
-	// SÓ OQUE PRECISA FAZER É COLOCAR UMA AND ENTRE OS BOOLEANOS £ 
-	String programa[] = new String[1000];
 
-	Scanner sc = new Scanner(a);
-	int i = 0;
-    while(sc.hasNextLine()) {
-       	programa[i] = sc.nextLine();
-       	i++;
-    }		
-	Funcoes teste = new Funcoes(); 
-	teste.interpreta(programa);
-	int num = 2;
-	//System.out.println(variaveis[num] + " | " + conteudos[num]);
-	sc.close();
-	
-	
-	}//fim da main
+	public void se(String condicional) {
+		
+		
+	}
 }//fim da classe funçoes
