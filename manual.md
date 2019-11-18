@@ -2,9 +2,6 @@
 title: "Documentação da linguagem BrasilianWay"
 author: "Felipe Boschetti, Lucas Tissotti e Mateus Cazarotto"
 date: "17/11/2019"
-output:
-  pdf_document: default
-  html_document: default
 ---
 \
 \ 
