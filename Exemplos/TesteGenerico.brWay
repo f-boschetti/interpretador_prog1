@@ -1,0 +1,18 @@
+asd   :=	10    
+
+b := 3 
+c := asd / b 
+d := asd # b
+d := asd $ b   
+s := '  ;  a; soma'     
+v :=     True
+comentario qualquer aqui
+imprime: 'o valor|m de asd eh : '
+imprime: asd |m
+imprime: '---------------------|m'
+imprime: asd|m
+imprime: b |m
+imprime: c |m
+imprime: s |m
+imprime: d |m
+imprime: v |m

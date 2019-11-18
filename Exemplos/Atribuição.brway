@@ -1,0 +1,16 @@
+uma atribuição pode ser
+
+um numero
+a := 10
+outronumero := 20.5
+
+uma equação
+equacao := a + outronumero
+
+um booleano
+booleano1 := a $ outronumero
+
+imprime: a |m
+imprime: outronumero|m
+imprime: equacao |m
+imprime: booleano1

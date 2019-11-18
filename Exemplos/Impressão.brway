@@ -1,0 +1,10 @@
+para imprimir algo na tela a linha do comenado deve começar com o comando "imprime:"
+a impressão não tem quebra de linha, a quebra de linha é feita com os caracteres "|m"
+
+a := 'pao de batata '
+imprime: a
+
+a := 10
+imprime: a |m
+
+imprime: 'essas |mcoisas'

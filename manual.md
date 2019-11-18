@@ -26,7 +26,9 @@ felipe := 'Lindão'
 ```
 
 ##### **Operadores matematicos**
-São os mesmos de outros programas convencionais:
+São os mesmos dos demais linguagens
+**Porém só se pode ter dois operandos por vez**
+
 * Soma `+`
 
 * Subtração `-`
@@ -47,6 +49,8 @@ e := c * 9
 f := d % 3
 ```
 #### **Operadors lógicos**
+**Só se pode ter dois operandos por vez**
+
 
 * Igual `#`
 
