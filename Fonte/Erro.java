@@ -1,8 +1,11 @@
+//Não sei o por que de uma classe erro no nosso projeto
+//O colega que começou o projeto nao terminou e perdi completamente o contato com ele
+//Felipe
+
 class Erro extends java.lang.Throwable{
 	
-	/**
-	 * 
-	 */
+
+
 	private static final long serialVersionUID = 1L;
 
 	public Erro(int e, int linha, String frase){
