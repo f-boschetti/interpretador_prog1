@@ -4,15 +4,24 @@ author: "Felipe Boschetti, Lucas Tissotti e Mateus Cazarotto"
 date: "17/11/2019"
 ---
 \
-\ 
+\
 
 ### Conhecimentos basicos sobre BrasilianWay
   A linguagem BrasilianWay, assim como todo brasileirinho almeja o alto nivel, sendo assim ela é muito inspirada em Python.
   Tendo isso em vista **não** se deve usar qualquer pontuação ao final de **nenhuma** linha e **não** precisa declarar o tipo da variavel.
 
+### Como executar:
+
+Para executar, no diretorio onde encontram-se o codigo fonte do programa e o algoritmo que voce construiu você precisa rodar os seguintes comandos no terminal
+
+```
+>>> javac *.java
+>>> java BrasilianWay SeuAlgoritmo.brway
+```
+
 #### Comandos basicos da linguagem
-\ 
-\ 
+\
+\
 
 ##### Atribuições
 
